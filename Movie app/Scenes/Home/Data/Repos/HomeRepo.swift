@@ -19,17 +19,23 @@ final class HomeRepo: HomeRepoInterface {
     }
 
     func fetchMovies() async throws -> [Movie] {
-        do {
-            let response = try await provider.request(TMDBTarget.bestMovies2025)
-            let decoded = try JSONDecoder().decode(MovieResponse.self, from: response.data)
-
-            try coreDataStore.save(movies: decoded.results)
-
-            return decoded.results
-        } catch {
-            print("⚠️ Network failed, fetching from cache.")
+        let isConnected = ConnectivityManager.shared.isConnected
+        
+        if isConnected {
+            do {
+                let response = try await provider.request(TMDBTarget.bestMovies2025)
+                let decoded = try JSONDecoder().decode(MovieResponse.self, from: response.data)
+                try coreDataStore.save(movies: decoded.results)
+                return decoded.results
+            } catch {
+                print("⚠️ API failed, fallback to CoreData: \(error)")
+                return try coreDataStore.fetchMovies()
+            }
+        } else {
+            print("📴 No internet, loading from CoreData")
             return try coreDataStore.fetchMovies()
         }
     }
+
     
 }
