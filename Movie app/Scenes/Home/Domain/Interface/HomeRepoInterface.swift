@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HomeRepoInterface {
-    func fetchMovies() async throws -> [String]
+    func fetchMovies() async throws -> [Movie]
 }

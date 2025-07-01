@@ -8,19 +8,18 @@
 import Foundation
 
 protocol HomeUsecaseProtocol {
-    func fetchMovies() async throws -> [String]
+    func fetchMovies() async throws -> [Movie]
 }
 
 final class HomeUsecase: HomeUsecaseProtocol {
 
     private let repo: HomeRepoInterface
-    
+
     init(repo: HomeRepoInterface) {
         self.repo = repo
     }
-    
-    func fetchMovies() async throws -> [String] {
-        []
+
+    func fetchMovies() async throws -> [Movie] {
+        try await repo.fetchMovies()
     }
-    
 }
