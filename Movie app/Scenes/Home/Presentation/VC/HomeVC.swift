@@ -15,7 +15,8 @@ final class HomeVC: UIViewController {
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
     var onMovieSelected: ((Movie) -> Void)?
-
+    private let refreshControl = UIRefreshControl()
+    
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,24 +28,23 @@ final class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        uiCollectionView.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
-        uiCollectionView.collectionViewLayout = makeLayout()
-        uiCollectionView.dataSource = self
-        uiCollectionView.delegate = self
+        setupUI()
         bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Task {
-            LoadingIndicator.shared.show(in: view)
-            do {
-                try await viewModel.loadMovies()
-            } catch {
-                showAlert(message: error.localizedDescription)
-            }
-            LoadingIndicator.shared.hide()
-        }
+        loadMoviesInitial()
+    }
+    
+    private func setupUI() {
+        uiCollectionView.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+        uiCollectionView.collectionViewLayout = makeLayout()
+        uiCollectionView.dataSource = self
+        uiCollectionView.delegate = self
+        
+        refreshControl.addTarget(self, action: #selector(refreshMovies), for: .valueChanged)
+        uiCollectionView.refreshControl = refreshControl
     }
     
     private func bindViewModel() {
@@ -56,6 +56,39 @@ final class HomeVC: UIViewController {
             .store(in: &cancellables)
     }
 
+    @objc private func refreshMovies() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        view.isUserInteractionEnabled = false
+
+        Task {
+            defer {
+                refreshControl.endRefreshing()
+                view.isUserInteractionEnabled = true
+            }
+
+            do {
+                try await viewModel.loadMovies()
+            } catch {
+                showAlert(message: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func loadMoviesInitial() {
+        view.isUserInteractionEnabled = false
+        Task {
+            LoadingIndicator.shared.show(in: view)
+            defer {
+                LoadingIndicator.shared.hide()
+                view.isUserInteractionEnabled = true
+            }
+            do {
+                try await viewModel.loadMovies()
+            } catch {
+                showAlert(message: error.localizedDescription)
+            }
+        }
+    }
     
     private func makeLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
@@ -93,9 +126,7 @@ extension HomeVC: UICollectionViewDataSource {
         cell.configure(with: movie)
         cell.onFavoriteTapped = { [weak self] in
             self?.viewModel.toggleFavorite(for: movie.id)
-            if let indexPath = collectionView.indexPath(for: cell) {
-                collectionView.reloadItems(at: [indexPath])
-            }
+            collectionView.reloadItems(at: [indexPath])
         }
         return cell
     }

@@ -21,7 +21,9 @@ final class HomeViewModel: ObservableObject {
 
     func loadMovies() async throws {
         let movies = try await homeUsecase.fetchMovies()
-        self.movies = movies
+        self.movies = movies.sorted {
+            ($0.isFavorite ?? false) && !($1.isFavorite ?? false)
+        }
     }
 
     func toggleFavorite(for id: Int) {
