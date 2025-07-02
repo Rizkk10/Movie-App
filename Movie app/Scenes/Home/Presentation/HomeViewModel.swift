@@ -25,4 +25,17 @@ final class HomeViewModel: ObservableObject {
             print("❌ Failed to load movies: \(error)")
         }
     }
+    
+    func toggleFavorite(for id: Int) {
+        guard let index = movies.firstIndex(where: { $0.id == id }) else { return }
+
+        movies[index].isFavorite?.toggle() ?? (movies[index].isFavorite = true)
+
+        do {
+            try usecase.updateFavoriteStatus(for: id, isFavorite: movies[index].isFavorite ?? false)
+        } catch {
+            print("❌ Failed to update favorite: \(error)")
+        }
+    }
+
 }

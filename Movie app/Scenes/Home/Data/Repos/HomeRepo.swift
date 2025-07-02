@@ -19,8 +19,14 @@ final class HomeRepo: HomeRepoInterface {
     }
 
     func fetchMovies() async throws -> [Movie] {
-        let isConnected = ConnectivityManager.shared.isConnected
+        let cachedMovies = try coreDataStore.fetchMovies()
         
+        if !cachedMovies.isEmpty {
+            print("✅ Loaded movies from Core Data (\(cachedMovies.count))")
+            return cachedMovies
+        }
+
+        let isConnected = ConnectivityManager.shared.isConnected
         if isConnected {
             do {
                 let response = try await provider.request(TMDBTarget.bestMovies2025)
@@ -28,13 +34,18 @@ final class HomeRepo: HomeRepoInterface {
                 try coreDataStore.save(movies: decoded.results)
                 return decoded.results
             } catch {
-                print("⚠️ API failed, fallback to CoreData: \(error)")
-                return try coreDataStore.fetchMovies()
+                print("⚠️ API failed, and CoreData was empty. Error: \(error)")
+                return []
             }
         } else {
-            print("📴 No internet, loading from CoreData")
-            return try coreDataStore.fetchMovies()
+            print("📴 No internet and no cached movies found")
+            return []
         }
+    }
+
+    
+    func updateFavoriteStatus(for id: Int, isFavorite: Bool) throws {
+        try coreDataStore.updateFavoriteStatus(for: id, isFavorite: isFavorite)
     }
 
     

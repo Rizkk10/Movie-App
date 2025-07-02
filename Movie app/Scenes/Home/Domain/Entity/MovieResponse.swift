@@ -5,6 +5,7 @@
 //  Created by Mohamed Rizk on 01/07/2025.
 //
 
+import Foundation
 
 struct MovieResponse: Codable {
     let results: [Movie]
@@ -19,7 +20,8 @@ struct Movie: Codable, Identifiable {
     let posterPath: String?
     let originalLanguage: String
     var isFavorite: Bool?
-
+    var posterImage: Data?
+    
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -41,6 +43,7 @@ extension Movie {
         self.posterPath = entity.posterPath
         self.originalLanguage = entity.originalLanguage ?? ""
         self.isFavorite = entity.isFavorite
+        self.posterImage = entity.posterImage
     }
 }
 

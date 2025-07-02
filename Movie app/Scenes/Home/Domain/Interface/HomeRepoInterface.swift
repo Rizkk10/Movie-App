@@ -9,4 +9,5 @@ import Foundation
 
 protocol HomeRepoInterface {
     func fetchMovies() async throws -> [Movie]
+    func updateFavoriteStatus(for id: Int, isFavorite: Bool) throws
 }

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="Movie_app" customModuleProvider="target">
             <connections>
+                <outlet property="uiCollectionView" destination="4rh-Ix-MFU" id="rZv-TA-JPF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,23 +20,66 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoS-H6-ht7">
-                    <rect key="frame" x="137.66666666666666" y="415.66666666666669" width="118" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O7d-KE-dN9">
+                    <rect key="frame" x="0.0" y="118" width="393" height="56"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="center" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ng0-tf-9gS">
+                            <rect key="frame" x="120.00000000000001" y="0.0" width="153.33333333333337" height="56"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Movies" translatesAutoresizingMaskIntoConstraints="NO" id="YjY-jG-7gL">
+                                    <rect key="frame" x="8" y="8" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="YjY-jG-7gL" secondAttribute="height" id="AM7-Bp-u7m"/>
+                                        <constraint firstAttribute="width" constant="40" id="cLg-bg-rbj"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="fullRounded" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="999" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Top Movies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xet-gB-yPk">
+                                    <rect key="frame" x="59.999999999999993" y="18.333333333333343" width="85.333333333333314" height="19.333333333333329"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localeKey" value="welcome"/>
+                                    </userDefinedRuntimeAttributes>
+                                </label>
+                            </subviews>
+                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                        </stackView>
+                    </subviews>
+                </stackView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="4rh-Ix-MFU">
+                    <rect key="frame" x="0.0" y="174" width="393" height="610"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hIU-Wy-IZ2">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="VoS-H6-ht7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Phd-fO-lOb"/>
-                <constraint firstItem="VoS-H6-ht7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="xDj-qM-tl4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4rh-Ix-MFU" secondAttribute="bottom" id="99H-F9-YeD"/>
+                <constraint firstItem="O7d-KE-dN9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Zcd-a7-oOW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4rh-Ix-MFU" secondAttribute="trailing" id="fDx-uo-Eav"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="O7d-KE-dN9" secondAttribute="trailing" id="gfK-WI-726"/>
+                <constraint firstItem="4rh-Ix-MFU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rO3-yV-Pk6"/>
+                <constraint firstItem="4rh-Ix-MFU" firstAttribute="top" secondItem="O7d-KE-dN9" secondAttribute="bottom" id="tQG-tn-lCm"/>
+                <constraint firstItem="O7d-KE-dN9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="tqS-sV-egJ"/>
             </constraints>
             <point key="canvasLocation" x="-51" y="20"/>
         </view>
     </objects>
     <resources>
+        <image name="Movies" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

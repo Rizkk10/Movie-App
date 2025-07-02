@@ -9,6 +9,7 @@ import Foundation
 
 protocol HomeUsecaseProtocol {
     func fetchMovies() async throws -> [Movie]
+    func updateFavoriteStatus(for id: Int, isFavorite: Bool) throws
 }
 
 final class HomeUsecase: HomeUsecaseProtocol {
@@ -21,5 +22,9 @@ final class HomeUsecase: HomeUsecaseProtocol {
 
     func fetchMovies() async throws -> [Movie] {
         try await repo.fetchMovies()
+    }
+    
+    func updateFavoriteStatus(for id: Int, isFavorite: Bool) throws {
+        try repo.updateFavoriteStatus(for: id, isFavorite: isFavorite)
     }
 }
