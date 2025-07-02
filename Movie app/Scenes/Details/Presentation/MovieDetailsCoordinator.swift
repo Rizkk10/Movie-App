@@ -11,16 +11,16 @@ import UIKit
 final class MovieDetailsCoordinator {
 
     private let navigationController: UINavigationController
-    private let usecase: HomeUsecaseProtocol
+    private let favoriteUsecase: FavoriteUsecaseProtocol
 
-    init(navigationController: UINavigationController, usecase: HomeUsecaseProtocol) {
+    init(navigationController: UINavigationController, favoriteUsecase: FavoriteUsecaseProtocol) {
         self.navigationController = navigationController
-        self.usecase = usecase
+        self.favoriteUsecase = favoriteUsecase
     }
 
     @MainActor
     func start(movie: Movie) {
-        let viewModel = MovieDetailsViewModel(movie: movie, usecase: usecase)
+        let viewModel = MovieDetailsViewModel(movie: movie, favoriteUsecase: favoriteUsecase)
         let vc = MovieDetailsVC(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: true)
     }

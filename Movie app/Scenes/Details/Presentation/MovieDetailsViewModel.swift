@@ -11,17 +11,17 @@ import Foundation
 final class MovieDetailsViewModel: ObservableObject {
     @Published private(set) var movie: Movie
 
-    private let usecase: HomeUsecaseProtocol
+    private let favoriteUsecase: FavoriteUsecaseProtocol
 
-    init(movie: Movie, usecase: HomeUsecaseProtocol) {
+    init(movie: Movie, favoriteUsecase: FavoriteUsecaseProtocol) {
         self.movie = movie
-        self.usecase = usecase
+        self.favoriteUsecase = favoriteUsecase
     }
 
     func toggleFavorite() {
         movie.isFavorite?.toggle() ?? (movie.isFavorite = true)
         do {
-            try usecase.updateFavoriteStatus(for: movie.id, isFavorite: movie.isFavorite ?? false)
+            try favoriteUsecase.updateFavoriteStatus(for: movie.id, isFavorite: movie.isFavorite ?? false)
         } catch {
             print("❌ Failed to update favorite: \(error)")
         }

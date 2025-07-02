@@ -21,21 +21,24 @@ final class HomeCoordinator {
         let context = PersistenceController.shared.container.viewContext
         let coreDataStore = MovieCoreDataStore(context: context)
         let repo = HomeRepo(coreDataStore: coreDataStore)
-        let usecase = HomeUsecase(repo: repo)
-        let viewModel = HomeViewModel(usecase: usecase)
+        
+        let homeUsecase = HomeUsecase(repo: repo)
+        let favoriteUsecase = FavoriteUsecase(repo: repo)
+        
+        let viewModel = HomeViewModel(homeUsecase: homeUsecase, favoriteUsecase: favoriteUsecase)
         let vc = HomeVC(viewModel: viewModel)
 
         vc.onMovieSelected = { [weak self] movie in
-            guard let self = self else { return }
-            showMovieDetails(movie: movie, usecase: usecase)
+            self?.showMovieDetails(movie: movie, favoriteUsecase: favoriteUsecase)
         }
 
         return vc
     }
 
     @MainActor
-    private func showMovieDetails(movie: Movie, usecase: HomeUsecaseProtocol) {
-        let detailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, usecase: usecase)
+    private func showMovieDetails(movie: Movie, favoriteUsecase: FavoriteUsecaseProtocol) {
+        let detailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, favoriteUsecase: favoriteUsecase)
         detailsCoordinator.start(movie: movie)
     }
+
 }

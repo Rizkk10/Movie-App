@@ -11,29 +11,27 @@ import Foundation
 final class HomeViewModel: ObservableObject {
     @Published var movies: [Movie] = []
 
-    private let usecase: HomeUsecaseProtocol
+    private let homeUsecase: HomeUsecaseProtocol
+    private let favoriteUsecase: FavoriteUsecaseProtocol
 
-    init(usecase: HomeUsecaseProtocol) {
-        self.usecase = usecase
+    init(homeUsecase: HomeUsecaseProtocol, favoriteUsecase: FavoriteUsecaseProtocol) {
+        self.homeUsecase = homeUsecase
+        self.favoriteUsecase = favoriteUsecase
     }
 
-    @MainActor
     func loadMovies() async throws {
-        let movies = try await usecase.fetchMovies()
+        let movies = try await homeUsecase.fetchMovies()
         self.movies = movies
     }
 
-    
     func toggleFavorite(for id: Int) {
         guard let index = movies.firstIndex(where: { $0.id == id }) else { return }
-
         movies[index].isFavorite?.toggle() ?? (movies[index].isFavorite = true)
 
         do {
-            try usecase.updateFavoriteStatus(for: id, isFavorite: movies[index].isFavorite ?? false)
+            try favoriteUsecase.updateFavoriteStatus(for: id, isFavorite: movies[index].isFavorite ?? false)
         } catch {
             print("❌ Failed to update favorite: \(error)")
         }
     }
-
 }
