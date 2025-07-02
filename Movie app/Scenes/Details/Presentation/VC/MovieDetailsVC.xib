@@ -33,6 +33,7 @@
                             <rect key="frame" x="8" y="-3" width="50" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="8Xr-o4-cf8"/>
+                                <constraint firstAttribute="width" secondItem="vcu-My-os2" secondAttribute="height" multiplier="1:1" id="KVf-kd-QHZ"/>
                                 <constraint firstAttribute="width" constant="50" id="Nvy-kP-VJi"/>
                                 <constraint firstAttribute="width" secondItem="vcu-My-os2" secondAttribute="height" multiplier="1:1" id="n4G-D6-UJd"/>
                             </constraints>
@@ -48,7 +49,6 @@
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="K1K-1i-C1e"/>
-                        <constraint firstItem="vcu-My-os2" firstAttribute="width" secondItem="vcu-My-os2" secondAttribute="height" multiplier="1:1" id="KVf-kd-QHZ"/>
                         <constraint firstAttribute="height" constant="44" id="Kln-6X-aWC"/>
                         <constraint firstItem="vcu-My-os2" firstAttribute="leading" secondItem="TBa-4Y-rzz" secondAttribute="leading" constant="8" id="guP-qW-fp3"/>
                         <constraint firstItem="vcu-My-os2" firstAttribute="centerY" secondItem="TBa-4Y-rzz" secondAttribute="centerY" id="xDj-PE-g8u"/>
@@ -60,7 +60,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uPi-VZ-Pg5">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="664.66666666666663"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e5h-ic-S6U">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e5h-ic-S6U">
                                     <rect key="frame" x="8" y="8" width="377" height="426"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">

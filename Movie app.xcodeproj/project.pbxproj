@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		716338F42E146A55005C6217 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F32E146A55005C6217 /* CombineMoya */; };
 		716338F62E146A55005C6217 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F52E146A55005C6217 /* Moya */; };
-		716338F82E146A55005C6217 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F72E146A55005C6217 /* ReactiveMoya */; };
-		716338FA2E146A55005C6217 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F92E146A55005C6217 /* RxMoya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,9 +70,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				716338F62E146A55005C6217 /* Moya in Frameworks */,
-				716338F42E146A55005C6217 /* CombineMoya in Frameworks */,
-				716338FA2E146A55005C6217 /* RxMoya in Frameworks */,
-				716338F82E146A55005C6217 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
