@@ -37,7 +37,13 @@ final class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
-            await viewModel.loadMovies()
+            LoadingIndicator.shared.show(in: view)
+            do {
+                try await viewModel.loadMovies()
+            } catch {
+                showAlert(message: error.localizedDescription)
+            }
+            LoadingIndicator.shared.hide()
         }
     }
     

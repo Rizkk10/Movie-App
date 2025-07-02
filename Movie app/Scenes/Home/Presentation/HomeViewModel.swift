@@ -17,14 +17,12 @@ final class HomeViewModel: ObservableObject {
         self.usecase = usecase
     }
 
-    func loadMovies() async {
-        do {
-            let movies = try await usecase.fetchMovies()
-            self.movies = movies
-        } catch {
-            print("❌ Failed to load movies: \(error)")
-        }
+    @MainActor
+    func loadMovies() async throws {
+        let movies = try await usecase.fetchMovies()
+        self.movies = movies
     }
+
     
     func toggleFavorite(for id: Int) {
         guard let index = movies.firstIndex(where: { $0.id == id }) else { return }
