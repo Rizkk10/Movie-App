@@ -14,7 +14,8 @@ final class HomeVC: UIViewController {
     
     private let viewModel: HomeViewModel
     private var cancellables = Set<AnyCancellable>()
-    
+    var onMovieSelected: ((Movie) -> Void)?
+
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -29,7 +30,12 @@ final class HomeVC: UIViewController {
         uiCollectionView.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
         uiCollectionView.collectionViewLayout = makeLayout()
         uiCollectionView.dataSource = self
+        uiCollectionView.delegate = self
         bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         Task {
             await viewModel.loadMovies()
         }
@@ -40,7 +46,6 @@ final class HomeVC: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] movies in
                 self?.uiCollectionView.reloadData()
-                print("First movie:", movies.first?.title ?? "None")
             }
             .store(in: &cancellables)
     }
@@ -87,5 +92,12 @@ extension HomeVC: UICollectionViewDataSource {
             }
         }
         return cell
+    }
+}
+
+extension HomeVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedMovie = viewModel.movies[indexPath.item]
+        onMovieSelected?(selectedMovie)
     }
 }
