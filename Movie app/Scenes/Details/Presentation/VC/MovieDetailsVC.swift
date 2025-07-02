@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import Kingfisher
 
 class MovieDetailsVC: UIViewController {
     
@@ -57,14 +58,9 @@ class MovieDetailsVC: UIViewController {
         
         if let imageData = movie.posterImage, let image = UIImage(data: imageData) {
             uiMoviePoster.image = image
-        } else if let path = movie.posterPath,
-                  let url = URL(string: "https://image.tmdb.org/t/p/w500\(path)") {
-            URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-                guard let data = data, let image = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    self?.uiMoviePoster.image = image
-                }
-            }.resume()
+        } else if let path = movie.posterPath {
+            let url = URL(string: "https://image.tmdb.org/t/p/w500\(path)")
+            uiMoviePoster.kf.setImage(with: url, placeholder: UIImage(systemName: "photo"))
         } else {
             uiMoviePoster.image = UIImage(systemName: "photo")
         }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MovieCell: UICollectionViewCell {
 
@@ -31,22 +32,9 @@ class MovieCell: UICollectionViewCell {
 
         if let imageData = movie.posterImage, let image = UIImage(data: imageData) {
             uiMoviePoster.image = image
-        }
-        else if let posterPath = movie.posterPath {
-            let urlString = "https://image.tmdb.org/t/p/w500\(posterPath)"
-            if let cachedImage = ImageCache.shared.object(forKey: urlString as NSString) {
-                uiMoviePoster.image = cachedImage
-            } else if let url = URL(string: urlString) {
-                uiMoviePoster.image = UIImage(systemName: "photo")
-
-                URLSession.shared.dataTask(with: url) { data, _, _ in
-                    guard let data = data, let image = UIImage(data: data) else { return }
-                    ImageCache.shared.setObject(image, forKey: urlString as NSString)
-                    DispatchQueue.main.async {
-                        self.uiMoviePoster.image = image
-                    }
-                }.resume()
-            }
+        } else if let posterPath = movie.posterPath {
+            let url = URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+            uiMoviePoster.kf.setImage(with: url, placeholder: UIImage(systemName: "photo"))
         } else {
             uiMoviePoster.image = UIImage(systemName: "photo")
         }
@@ -56,16 +44,8 @@ class MovieCell: UICollectionViewCell {
         uiFavoriteButton.tintColor = .systemRed
     }
 
-
-
     @IBAction func favoriteButtonAction(_ sender: Any) {
         onFavoriteTapped?()
     }
     
-}
-
-final class ImageCache {
-    static let shared = NSCache<NSString, UIImage>()
-    
-    private init() {}
 }
