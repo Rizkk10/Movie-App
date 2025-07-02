@@ -13,16 +13,16 @@ final class MovieDetailsViewModelTests: XCTestCase {
     @MainActor
     func test_toggleFavorite_flipsFavoriteStatus() {
         // Arrange
-        let usecase = HomeUsecaseMock()
+        let favoriteUsecase = FavoriteUsecaseMock()
         let movie = Movie(id: 10, title: "Interstellar", overview: "", voteAverage: 8.6, releaseDate: "2014", posterPath: nil, originalLanguage: "en", isFavorite: false)
-        let viewModel = MovieDetailsViewModel(movie: movie, usecase: usecase)
+        let viewModel = MovieDetailsViewModel(movie: movie, favoriteUsecase: favoriteUsecase)
 
         // Act
         viewModel.toggleFavorite()
 
         // Assert
         XCTAssertTrue(viewModel.movie.isFavorite ?? false)
-        XCTAssertEqual(usecase.updatedFavorites.first?.0, 10)
-        XCTAssertEqual(usecase.updatedFavorites.first?.1, true)
+        XCTAssertEqual(favoriteUsecase.updatedFavorites.first?.0, 10)
+        XCTAssertEqual(favoriteUsecase.updatedFavorites.first?.1, true)
     }
 }
