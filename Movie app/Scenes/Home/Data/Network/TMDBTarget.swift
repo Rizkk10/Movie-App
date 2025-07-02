@@ -14,7 +14,7 @@ enum TMDBTarget {
 
 extension TMDBTarget: TargetType {
     var baseURL: URL {
-        URL(string: "https://api.themoviedb.org/3")!
+        return AppConfig.tmdbBaseURL
     }
 
     var path: String {
@@ -44,7 +44,7 @@ extension TMDBTarget: TargetType {
 
     var headers: [String: String]? {
         [
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzE4OTFhYjhhNDYwYjExOTc4OTIyOTFmNWZiYTMzYSIsIm5iZiI6MTc1MTM5MzM0MC4wNjgsInN1YiI6IjY4NjQyNDNjMmUzYWUwMTIzNzhjMjQyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IrHLWZvRs9SghgyOH6tPfeiJdS3Uh4paO64o24CnMko",
+            "Authorization": "Bearer \(AppConfig.tmdbAccessToken)",
             "Accept": "application/json"
         ]
     }

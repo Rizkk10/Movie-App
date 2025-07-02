@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>TMDBAccessToken</key>
+	<string>eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzE4OTFhYjhhNDYwYjExOTc4OTIyOTFmNWZiYTMzYSIsIm5iZiI6MTc1MTM5MzM0MC4wNjgsInN1YiI6IjY4NjQyNDNjMmUzYWUwMTIzNzhjMjQyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IrHLWZvRs9SghgyOH6tPfeiJdS3Uh4paO64o24CnMko</string>
+	<key>TMDBBaseURL</key>
+	<string>https://api.themoviedb.org/3</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
