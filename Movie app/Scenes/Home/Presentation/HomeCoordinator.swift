@@ -21,9 +21,10 @@ final class HomeCoordinator {
         let context = PersistenceController.shared.container.viewContext
         let coreDataStore = MovieCoreDataStore(context: context)
         let repo = HomeRepo(coreDataStore: coreDataStore)
-        
+        let favoriteRepo = FavoriteRepo(coreDataStore: coreDataStore)
+
         let homeUsecase = HomeUsecase(repo: repo)
-        let favoriteUsecase = FavoriteUsecase(repo: repo)
+        let favoriteUsecase = FavoriteUsecase(repo: favoriteRepo)
         
         let viewModel = HomeViewModel(homeUsecase: homeUsecase, favoriteUsecase: favoriteUsecase)
         let vc = HomeVC(viewModel: viewModel)

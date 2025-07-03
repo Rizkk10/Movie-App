@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		716338F62E146A55005C6217 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F52E146A55005C6217 /* Moya */; };
+		719008622E15F4E700193F4A /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F32E146A55005C6217 /* CombineMoya */; };
+		719008632E15F4E700193F4A /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F72E146A55005C6217 /* ReactiveMoya */; };
+		719008642E15F4E700193F4A /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 716338F92E146A55005C6217 /* RxMoya */; };
 		71BF5FDD2E155B69006BD4FB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 71BF5FDC2E155B69006BD4FB /* Kingfisher */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +73,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				719008642E15F4E700193F4A /* RxMoya in Frameworks */,
+				719008632E15F4E700193F4A /* ReactiveMoya in Frameworks */,
+				719008622E15F4E700193F4A /* CombineMoya in Frameworks */,
 				71BF5FDD2E155B69006BD4FB /* Kingfisher in Frameworks */,
 				716338F62E146A55005C6217 /* Moya in Frameworks */,
 			);

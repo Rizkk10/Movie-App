@@ -36,6 +36,8 @@ class MovieDetailsVC: UIViewController {
         self.navigationItem.hidesBackButton = true
         bindViewModel()
         configureUI()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
     private func bindViewModel() {
@@ -78,4 +80,10 @@ class MovieDetailsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension MovieDetailsVC: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

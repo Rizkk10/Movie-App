@@ -126,7 +126,9 @@ extension HomeVC: UICollectionViewDataSource {
         cell.configure(with: movie)
         cell.onFavoriteTapped = { [weak self] in
             self?.viewModel.toggleFavorite(for: movie.id)
-            collectionView.reloadItems(at: [indexPath])
+            UIView.performWithoutAnimation {
+                collectionView.reloadItems(at: [indexPath])
+            }
         }
         return cell
     }

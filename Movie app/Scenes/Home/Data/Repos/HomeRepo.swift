@@ -44,9 +44,4 @@ final class HomeRepo: HomeRepoInterface {
     }
 
     
-    func updateFavoriteStatus(for id: Int, isFavorite: Bool) throws {
-        try coreDataStore.updateFavoriteStatus(for: id, isFavorite: isFavorite)
-    }
-
-    
 }
